@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="site.css">
+
+
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
+    </head>
+
+    <h1>Exercise 1</h1>
+
+    <body>
+        <input type="number" id="num1" placeholder="Enter first number">
+        <input type="number" id="num2" placeholder="Enter second number">
+        <button id="calculate">Add</button>
+        <p id="result"></p>
+
+        <script>
+            $(document).ready(function ()) {
+                $("#calculate").click(function ()) 
+                let x = parseFloat($("#num1").val());
+                let y = parseFloat($("#num2").val());
+
+                if (isNaN(a) || isNaN(b)) {
+                    $("#result").text("Please enter valid numbers.");
+                    return;
+                }
+            }
+        </script>
+
+    </body>
+
+
+</html>
