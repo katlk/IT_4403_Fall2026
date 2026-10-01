@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="site.css">
+
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+        </script>
+
+    </head>
+//---I used help from Claude and w3schools.com for this exercise.
+
+    <body>
+
+        <h1>Exercise 1</h1>
+
+        <p>This is the first paragraph.</p>
+
+        <p>This is the second paragraph.</p>
+
+        <p>This is the third paragraph.</p>
+
+        <h2 id="Month">Current Month</h2>
+        <p>September</p>
+
+        <h2 id="Nextmonth">Next Month</h2>
+        <p>October</p>
+
+
+
+        <h3>Favorite Foods</h3>
+        <ul id="foods">
+            <li>Burger</li>
+            <li>Rice</li>
+            <li>Sushi</li>
+            <li>Pancakes</li>
+            <li>Soup</li>
+        </ul>
+
+        <p class="Day">Sunday</p>
+        <p class="Day">Monday</p>
+        <p class="Day">Tuesday</p>
+        <p class="Day">Wednesday</p>
+
+        <button id="btnID">Select by ID</button>
+        <button id="btnClass">Select by class</button>
+        <button id="btnElement">Select by type </button>
+
+        <button id="btnReadText">Read text</button>
+        <button id="btnReadHTML">Read HTML</button>
+        <button id="btnChangeText">Change text or HTML</button>
+        <button id="btnReadAttr">Read an attribute value</button>
+        <button id="btnChangeAttr">Change an attribute value</button>
+
+        <button id="btnHide">Hide</button>
+        <button id="btnShow">Show</button>
+        <button id="btnToggle">Toggle</button>
+
+        <button id="btnBackground">Background color</button>
+        <button id="btnTextcolor">Text color</button>
+        <button id="btnFontsize">Font size</button>
+        <button id="btnBorder">Border</button>
+        <button id="btnbcolor">Backhround color 2</button>
+
+        <script>
+            // ---Selectors---
+            $(document).ready(function () {
+                $("#btnID").click(function () {
+                    $("#Month").css("background-color", "green");
+                });
+            
+
+                $(document).ready(function () {
+                    $("#btnClass").click(function () {
+                        $("#Day").css("background-color", "purple");
+                    });
+                });
+
+                $(document).ready(function () {
+                    $("#btnElement").click(function () {
+                        $("#p").css("color", "red");
+                    });
+                });
+
+                //---DOM: read---
+                $("#btnReadText").click(function () {
+                    $("#output").text("Text: " + $("#Month").text());
+                });
+                
+                $("#btnReadHTML").click(function () {
+                    $("#output").text("HTML: " + $("#foods").html());
+                });
+
+                //---DOM: change---
+                $("#btnChangeText").click(function () {
+                    $("#Nextmonth").text("Changed to text!");
+                });
+
+                $("#btnChangeHTML").click(function () {
+                    $("Nextmonth").html("<strong>Changed to bold HTML!</strong>");
+                });
+
+                //---Visibility---
+                $("#btnHide").click(function () {
+                    $("#Nextmonth").hide();
+                });
+                $("#btnShow").click(function () {
+                    $("Nextmonth").show();
+                });
+                $("#btnToggle").click(function () {
+                    $("#Nextmonth").toggle();
+                });
+
+                //---CSS manipulation---
+                $("#btnBackground").click(function () {
+                    $("#p").css({
+                        "background-color": "orange",
+                        "color": "blue",
+                        "font-size": "40px",
+                        "border": "5px solid purple",
+                        "width": "400px"
+                    });
+                });
+                $("#btnTextcolor").click(function () {
+                    $("#foods").css({
+                        "color": "yellow"
+                    });
+                });
+                $("#btnFontsize").click(function () {
+                    $("#Day").css({
+                        "font-size": "100px",
+                        "border": "2px solid red"
+                    });
+                });
+                $("#btnBorder").click(function () {
+                    $("#h1").css({
+                        "background-color": "black",
+                        "color": "white"
+                    });
+                });
+                $("#btnbcolor").click(function () {
+                    $("#p").css({
+                        "background-color": "purple"
+                    })
+                })
+
+            });
+  
+        </script>
+
+
+
+    </body>
+
+
+    <li><a href="Lab2.html">Back</a></li>
+
+
+</html>

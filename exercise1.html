@@ -15,25 +15,81 @@
     <h1>Exercise 1</h1>
 
     <body>
-        <input type="number" id="num1" placeholder="Enter first number">
-        <input type="number" id="num2" placeholder="Enter second number">
-        <button id="calculate">Add</button>
-        <p id="result"></p>
+        
+        <script>
+            let num1 = prompt("Enter first number: ", "x")
+            let num2 = prompt("Enter second number: ", "y")
+
+            $("#add-btn").click(function() {
+                const num1 = parseFloat($('#num1').val());
+                const num2 = parseFloat($('#num2').val());
+                const result = num1 + num2;
+                $('#calc-result').text('${num1} + ${num2} = ${result}');
+
+            });
+
+            $("#subtract-btn").click(function() {
+                const num1 = parseFloat($('#num1').val());
+                const num2 = parseFloat($('#num2').val());
+                const result = num1 - num2;
+                $('#calc-result').text('${num1} - ${num2} = ${result}');
+
+            });
+
+            $("#multiply-btn").click(function() {
+                const num1 = parseFloat($('#num1').val());
+                const num2 = parseFloat($('#num2').val());
+                const result = num1 * num2;
+                $('#calc-result').text('${num1} * ${num2} = ${result}');
+
+            });
+
+            $("#divide-btn").click(function() {
+                const num1 = parseFloat($('#num1').val());
+                const num2 = parseFloat($('#num2').val());
+
+                if (num2 === 0) {
+                    $("#calc-result").text("Cannot divide by zero!");
+                } else {
+                    const result = num1 / num2;
+                    $("#calc-result").text('${num1} + ${num2}') = ${result.toFixed(2)}');
+                };
+            
+
+            });
+
+
+        </script>
+
+
+
+    </body>
+     <body>
+        <li>List Item</li>
 
         <script>
-            $(document).ready(function ()) {
-                $("#calculate").click(function ()) 
-                let x = parseFloat($("#num1").val());
-                let y = parseFloat($("#num2").val());
+            
+            
+            let item = "0";
+            let num = parseInt(str, 10);
+            num += 1;
+            console.log(num);
 
-                if (isNaN(a) || isNaN(b)) {
-                    $("#result").text("Please enter valid numbers.");
-                    return;
-                }
-            }
+            $(document).ready(function(){
+                var list_item = [item];
+                $.each(list_item, function(index, value){
+                    $("#listDiv").append(value + '<li>');
+                });
+            });
+
+
         </script>
 
     </body>
+    <ul>
+        <li><a href="Lab2.html">Back</a></li>
+
+    </ul>
 
 
 </html>
