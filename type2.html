@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="site.css">
+
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+        </script>
+    </head>
+
+    <body>
+        <h1>Type 2</h1>
+
+<!--Having trouble loading the JSON data-->
+<!--Attempt to load and parse JSON data-->
+        <script>
+
+            $.getJSON("openlibrary-search.json", function(data) {
+                console.log('jQuery data:', data);
+
+            })
+                .done(function() {
+                    console.log('JSON loaded successfully!');
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error loading JSON:', textStatus, errorThrown);
+                    $('#output').text('Failed to load data.');
+                });
+
+                function displayData(data) {
+                    const $output = $('#output');
+                    $output.html('<h2>Books (jQuery)</h2>');
+
+                    $.each(data.books, function(index, book) {
+                        $output.append(`
+                        <div style="margin: 10px 0; padding: 10px; border: 1px solid #ddd;">
+                            <p>Book title: ${data.title}</p>
+                            <p>Author(s): ${data.author_name}</p>
+                            <p>First publication year: ${data.first_publish_year}</p>
+                            <p>Publisher: ${data.number_of_pages}</p>
+                            <p>Edition count: ${data.isbn_10}</p>
+                            <p>ISBN-10: ${data.isbn_13}</p>
+                            <p>ISBN-13: ${data.covers}</p>
+                            <p>Cover image: ${data.authors}</p>
+                            <p>Documentation url: ${data.documentation_url}</p>
+                            <p>Language: ${data.languages.key}</p>')
+                        </div>
+                    `);
+
+                    if ($output = false) {
+                        console.log("action:", "hide");
+                    } else {
+                        console.log("action:", "show");
+                    };
+
+                    .done(function(data) { displayData(data); })
+
+                });
+
+            }
+       
+        </script>
+
+        <ul>
+
+            <li><a href="M1.html">Back</a></li>
+        </ul>
+
+
+    </body>
+
+</html>

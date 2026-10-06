@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="site.css">
+
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+        </script>
+    </head>
+
+    <body>
+        <h1>Type 1</h1>
+        <div id="output"></div>
+
+        <script>
+            $.getJSON("openlibrary-book.json", function(data) {
+                console.log('jQuery data:', data);
+
+            })
+                .done(function() {
+                    console.log('JSON loaded successfully!');
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error loading JSON:', textStatus, errorThrown);
+                    $('#output').text('Failed to load data.');
+                });
+
+                function displayData(data) {
+                    const $output = $('#output');
+                    $output.html('<h2>Book Details (jQuery)</h2>');
+
+                    $.each(data.books, function(index, book) {
+                        $output.append(`
+                        <div style="margin: 10px 0; padding: 10px; border: 1px solid #ddd;">
+                            <p>Book title: ${data.title}</p>
+                            <p>Publisher: ${data.publishers}</p>
+                            <p>Publication date: ${data.publish_date}</p>
+                            <p>Page count: ${data.number_of_pages}</p>
+                            <p>ISBN-10: ${data.isbn_10}</p>
+                            <p>ISBN-13: ${data.isbn_13}</p>
+                            <p>Cover image: ${data.covers}</p>
+                            <p>Author record or author reference: ${data.authors}</p>
+                            <p>First sentence, when available: ${data.first_sentence.value}</p>
+                            <p>Link to the Open Library record: ${data.title}</p>
+                            <p>Language: ${data.languages.key}</p>')
+                        </div>
+                    `);
+
+                    .done(function(data) { displayData(data); })
+
+                        
+                });
+
+            }
+       
+
+        </script>
+        
+        <ul>
+
+            <li><a href="M1.html">Back</a></li>
+        </ul>
+
+
+    </body>
+
+</html>
