@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="site.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous">
+        </script>
+
+    </head>
+
+    <body>
+                <!--Used Bing, w3schools.com, and educative.com for search functionality.-->
+        <h2>Book Search</h2>
+        <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search... ">
+        <button id="searchButton">Search</button>
+        </div>
+        <div id="searchResult"></div>
+
+        <select>
+            <option value="1">One Result</option>
+            <option value="10">Ten Results</option>
+            <option value="20">Twenty Results</option>
+            <option value="40">Forty Results</option>
+            <option value="60">Sixty Results</option>
+        </select>
+
+        <div class="container">
+            <div id="books"></div>
+            <div class="dataContainer"></div>
+        </div>
+
+        <!--I used Claude and Bing as a reference to build some of this code (not copy paste), specifically the function for pagination. -->
+
+
+        <script>
+            var pageSize = 10;
+            var pageCount = Math.ceil($(".item").length / pageSize);
+            for (var i = 1; i <= pageCount; i++) {
+                $("#pagination").append('<li><a href="#">' + i + '</a></li>');
+            }
+            $("#pagination li:first a").addClass("active")
+
+            function showPage(page) {
+                $(".item").hide().slice((page - 1) * pageSize, page * pageSize).show();
+            }
+            showPage(1);
+
+            //Constructing the API requests URL
+            $(document).ready(function() {
+                var query = $('#searchInput').val().trim();
+                if (query) {
+                    $('#searchResult').text('Searching for: ' + query);
+                } else{
+                    $('#searchResult').text('Please enter a search term.');
+                }
+
+                var encodedQuery = encodeURIComponent(query);
+
+                var baseURL = "https://openlibrary.org/search.json"
+                var apiURL = `${baseURl}?q=${encodedQuery}&limit=10`;
+
+                console.log("API URL:", apiURl);
+
+                //Calling the API
+                
+
+                $.ajax({
+                    url: apiURl,
+                    method: "GET",
+                    dataType: "json",
+                    success: function (data) {
+
+                        var output = "<ul>";
+                        data.items.forEach(item => {
+                            output += `<li>${item.title}</li>`;
+
+                        });
+                        output += "</ul>";
+                        $("#searchResult").html(output);
+                    },
+                    error: function (xhr, status, error) {
+                        $("#searchResult").html(`<p style='color:red;'>Error: ${error}</p>`);
+                    }
+                });
+            });
+
+
+            $.getJSON('/api/data', function(data) {
+                $.each(data, function(index, item) {
+                    console.log("Book Title:", item.title);
+                    console.log("Cover image:", item.cover_i);
+                });
+            });
+
+            //fetch("https://openlibrary.org/search.json?q=data%20analysis&limit=10&page=1")
+                //.then(response => response.json())
+                //.then(data => {
+                    //console.log(data);
+                //})
+                //.catch(error => {
+                    //console.log("Error:", error);
+                //});
+
+            //fetch("https://openlibrary.org/search.json?q=data%20analysis&limit=10&page=1")
+                //.then(response => response.json())
+                //.then(data => {
+                    //document.getElementById("result").innerHTML =
+                        //"Total books found: " + data.total;
+                //});
+            //
+        </script>
+
+
+        <ul>
+            <li><a href="labs.html">Back</a></li>
+
+        </ul>
+    </body>
+</html>

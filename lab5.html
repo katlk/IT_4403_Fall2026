@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="site.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous">
+        </script>
+
+    </head>
+
+    <body>
+        <!--Used https://www.xjavascript.com/blog/json-javascript-jquery-how-to-import-data-from-a-json-file-and-parse-it/#step-1-prepare-your-json-file for help.-->
+        <div id="output"></div>
+
+        <h1>Lab 5: Open Library</h1>
+
+        <script>
+            fetch('https://openlibrary.org/search.json?q=data%20analysis&limit=10')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.docs);
+                    if(!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+
+                })
+                .then(data => {
+                    console.log('Fetched data:', data);
+                    displayData(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                    document.getElementById('output').textContent = 'Failed to load data';
+
+                });
+            
+            function displayData(data) {
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = '<h2>Books</h2>';
+
+                data.books.forEach(book => {
+                    outputDiv.innerHTML += `
+                        <div style="margin: 20px 0; padding: 20px; border: 2px solid #ddd;">
+                            <h3>${book.title}</h3>
+                            <p>Author: ${book.author}</p>
+                            <p>Year: ${book.first_publish_year}</p>
+                        </div>
+                    `;
+                    
+                });
+            }
+
+            async function loadJSON() {
+                try {
+                    const response = await fetch('./response.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    console.log(data);
+                } catch (error) {
+                    console.error('Failed to fetch JSON:', error);
+                }
+            }
+            loadJSON();
+        </script>
+
+        <h1>Open Library: Data Analysis Books</h1>
+        <div id="results"></div>
+
+
+    </body>
+</html>
