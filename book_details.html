@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="site.css">
+        <link rel="stylesheet" href="m2.css">
         <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous">
@@ -12,7 +12,27 @@
     </head>
 
     <body>
-        <h2>Book Details</h2>
+        <h1>Book Details</h1>
+
+        <script>
+            fetch("https://openlibrary.org/dev/docs/api/search?utm_source=chatgpt.com")
+                .then(response => {
+                    if(!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+
+                })
+                .then(data => {
+                    console.log(data.docs);
+                    displayData(data.docs);
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                    document.getElementById("results").textContent = 'Failed to load data';
+
+                });
+        </script>
     </body>
 
 </html>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="site.css">
+        <link rel="stylesheet" href="m2.css">
         <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous">
@@ -12,7 +12,12 @@
     </head>
 
     <body>
-                <!--Used Bing, w3schools.com, and educative.com for search functionality.-->
+        <nav>
+            <a href="home_book_search.html">Home</a>
+            <a href="my_book_shelf.html">My Bookshelf</a>
+        </nav>
+        
+        <!--Used Bing, w3schools.com, and educative.com for search functionality.-->
         <h2>Book Search</h2>
         <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search... ">
@@ -20,34 +25,46 @@
         </div>
         <div id="searchResult"></div>
 
-        <select>
-            <option value="1">One Result</option>
-            <option value="10">Ten Results</option>
-            <option value="20">Twenty Results</option>
-            <option value="40">Forty Results</option>
-            <option value="60">Sixty Results</option>
-        </select>
+        <button id="newSearch">New Search</button>
 
-        <div class="container">
-            <div id="books"></div>
-            <div class="dataContainer"></div>
-        </div>
-
-        <!--I used Claude and Bing as a reference to build some of this code (not copy paste), specifically the function for pagination. -->
+        <!--I used Claude, Bing, and Stack Overflow as a reference to build some of this code (not copy paste), specifically the function for pagination and starting a search at page 1. -->
+        <h1>Home</h1>
+        <div id="results"></div>
 
 
         <script>
-            var pageSize = 10;
-            var pageCount = Math.ceil($(".item").length / pageSize);
-            for (var i = 1; i <= pageCount; i++) {
-                $("#pagination").append('<li><a href="#">' + i + '</a></li>');
-            }
-            $("#pagination li:first a").addClass("active")
 
-            function showPage(page) {
-                $(".item").hide().slice((page - 1) * pageSize, page * pageSize).show();
+            //fetching the data and converting to JSON
+            fetch("https://openlibrary.org/dev/docs/api/search?utm_source=chatgpt.com")
+            .then(response => {
+                if(!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+
+                })
+                .then(data => {
+                    console.log('Fetched data:', data);
+                    displayData(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                    document.getElementById('output').textContent = 'Failed to load data';
+
+                });
+            //Displaying the data
+            function displayData(docs) {
+                const resultsDiv = document.getElementById("results");
+                let output = "<ul>";
+
+                for (let i = 0; i <docs.length; i++) {
+                    const book = docs[i];
+                    const cover_i = book.cover_i;
+                }
+
+                output += "</ul>";
+                resultsDiv.innerHTML = output;
             }
-            showPage(1);
 
             //Constructing the API requests URL
             $(document).ready(function() {
@@ -65,22 +82,37 @@
 
                 console.log("API URL:", apiURl);
 
-                //Calling the API
+            function 
+
+            //Starting a search from page 1.
+            document.getElementById('newSearch').onclick = function() {
+                const query = "example search term";
+                const url = "https://openlibrary.org/search.json?q=" + encodeURIComponent(query);
+                window.open(url, "_blank");
+            };
+
+            //Pagination
+
+            function showPage(page) {
+                $(".item").hide().slice((page - 1) * pageSize, page * pageSize).show();
+            }
+            showPage(1);
+
+            $("#pagination li a").click(function(e) {
+                e.preventDefault();
+                $("#pagination li a").removeClass("active")
+                showPage(parseInt($(this).text()));
+            });
+
+            //Calling the API
                 
 
                 $.ajax({
                     url: apiURl,
-                    method: "GET",
-                    dataType: "json",
-                    success: function (data) {
-
-                        var output = "<ul>";
-                        data.items.forEach(item => {
-                            output += `<li>${item.title}</li>`;
-
-                        });
-                        output += "</ul>";
-                        $("#searchResult").html(output);
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log('API Response:', response);
                     },
                     error: function (xhr, status, error) {
                         $("#searchResult").html(`<p style='color:red;'>Error: ${error}</p>`);
@@ -88,31 +120,11 @@
                 });
             });
 
-
-            $.getJSON('/api/data', function(data) {
-                $.each(data, function(index, item) {
-                    console.log("Book Title:", item.title);
-                    console.log("Cover image:", item.cover_i);
-                });
-            });
-
-            //fetch("https://openlibrary.org/search.json?q=data%20analysis&limit=10&page=1")
-                //.then(response => response.json())
-                //.then(data => {
-                    //console.log(data);
-                //})
-                //.catch(error => {
-                    //console.log("Error:", error);
-                //});
-
-            //fetch("https://openlibrary.org/search.json?q=data%20analysis&limit=10&page=1")
-                //.then(response => response.json())
-                //.then(data => {
-                    //document.getElementById("result").innerHTML =
-                        //"Total books found: " + data.total;
-                //});
-            //
         </script>
+        <div id="container">
+            <div id="books"></div>
+            <div id="book_info"></div>
+        </div>
 
 
         <ul>
